@@ -520,6 +520,14 @@ save(ok): . (dataset)                                              action summar
 - Attach helpful commit messages
 :::
 
+## Exercise: Creating a DataLad dataset and saving data
+
+[![](https://mybinder.org/badge_logo.svg)]({{< var mybinder >}})
+
+### Learning objectives
+
+{{< include objectives/_objectives-introduction.qmd >}}
+
 ## Data in DataLad datasets are either stored in Git or git-annex
 
 ::::: {.columns}
@@ -803,6 +811,14 @@ index 0000000..b9eb768
 :::
 ::::
 
+## Exercise: Nesting modular datasets with clear provenance
+
+[![](https://mybinder.org/badge_logo.svg)]({{< var mybinder >}})
+
+### Learning objectives
+
+{{< include objectives/_objectives-nesting.qmd >}}
+
 # Science is exploratory and iterative
 
 ::: {.fragment}
@@ -915,6 +931,14 @@ add(ok): sub-01/LC_timeseries_run-*.csv(file)
 
 ![from the [DataLad Handbook](https://handbook.datalad.org/en/latest/index.html) by @wagner2022 ([CC BY-SA 4.0](https://handbook.datalad.org/en/latest/licenses.html))](images/datalad-containers-run-basic.svg){fig-align="center" width="80%"}
 :::
+
+## Exercise: Full provenance capture and reproducibility with DataLad
+
+[![](https://mybinder.org/badge_logo.svg)]({{< var mybinder >}})
+
+### Learning objectives
+
+{{< include objectives/_objectives-provenance.qmd >}}
 
 # Science is collaborative & distributed
 
