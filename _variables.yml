@@ -1,10 +1,9 @@
-title: "Reproducible Research Data Management with DataLad"
-subtitle: "Mannheim Open Science Meetup at University of Mannheim"
-project-name: "talk-uma-rdm-2025"
+title: "Reproducible Research Data Management with DataLad - A hands-on tutorial"
+project-name: "datalad-tutorial"
 footer: "{{< var title >}}"
-source: "https://github.com/lnnrtwttkhn/talk-uma-rdm-2025"
-website: "https://lennartwittkuhn.com/talk-uma-rdm-2025"
-issues: "https://github.com/lnnrtwttkhn/talk-uma-rdm-2025/issues"
+source: "https://github.com/lnnrtwttkhn/datalad-tutorial"
+website: "https://lennartwittkuhn.com/datalad-tutorial"
+issues: "https://github.com/lnnrtwttkhn/datalad-tutorial/issues"
 # license-long: "[MIT](https://opensource.org/license/mit/)"
 # license-short: "[MIT](https://opensource.org/license/mit/)"
 # license-badge: "[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)"
@@ -14,7 +13,7 @@ license-badge: "[![License: CC BY 4.0](https://img.shields.io/badge/License-CC_B
 doi: 10.5281/zenodo.10844704
 doi-badge: "[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10844704.svg)](https://doi.org/10.5281/zenodo.10844704)"
 homepage: https://lennartwittkuhn.com/
-email: "lennart.wittkuhn@uni-hamburg.de"
+email: "lennart.wittkuhn@tutanota.com"
 mailto: "mailto:{{< var email >}}"
 twitter: https://twitter.com/lnnrtwttkhn
 mastodon: https://fediscience.org/@lnnrtwttkhn
@@ -22,4 +21,4 @@ github: https://github.com/lnnrtwttkhn
 linkedin: https://www.linkedin.com/in/lennart-wittkuhn/
 scholar: https://scholar.google.com/citations?user=GXvJB1kAAAAJ&hl=en
 orcid: 0000-0003-2966-6888
-orcid-link: "https://orcid.org/{{< var orcid >}}"
+orcid-link: "https://orcid.org/0000-0003-2966-6888"
