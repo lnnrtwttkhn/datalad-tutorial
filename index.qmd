@@ -104,10 +104,6 @@ The **DataLad Handbook** by @wagner2022 is a comprehensive educational resource 
 :::::
 ::::::
 
-::: {.fragment}
-**Disclaimer:** I'm "only" an enthusiastic user of DataLad!
-:::
-
 ## Agenda
 
 :::: {.columns}
