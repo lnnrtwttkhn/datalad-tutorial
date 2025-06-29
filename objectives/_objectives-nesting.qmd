@@ -1,0 +1,4 @@
+:bulb: You can install an existing DataLad dataset as a subdataset.<br>
+:bulb: You can *get* and *drop* data in a DataLad dataset as needed.<br>
+:bulb: You know how to navigate nested DataLad datasets.<br>
+:bulb: You know how to access data in nested DataLad datasets recursively.<br>

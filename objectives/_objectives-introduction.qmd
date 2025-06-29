@@ -1,0 +1,5 @@
+:bulb: You know how to configure your username and email address in Git.<br>
+:bulb: You can create a new DataLad dataset.<br>
+:bulb: You know how to check the status of a DataLad dataset.<br>
+:bulb: You can save data in a DataLad dataset.<br>
+:bulb: You know about different configurations of DataLad datasets.
