@@ -405,13 +405,13 @@ Single subject epoch (block) auditory fMRI activation data
 :::
 
 ::: {.fragment .fade-in-then-semi-out}
-![[Brain Imaging Data Structure (BIDS)](https://bids.neuroimaging.io/) @gorgolewski2016 ([CC BY 4.0](https://github.com/bids-standard/bids-specification?tab=CC-BY-4.0-1-ov-file#readme))](images/bids-logo.svg){fig-align="center" width=70%}
+![[Brain Imaging Data Structure (BIDS)](https://bids.neuroimaging.io/) by @gorgolewski2016 ([CC BY 4.0](https://github.com/bids-standard/bids-specification?tab=CC-BY-4.0-1-ov-file#readme))](images/bids-logo.svg){fig-align="center" width=70%}
 :::
 ::::
 :::: {.column width="50%"}
 
 ::: {.fragment .fade-in-then-semi-out}
-![[Brain Imaging Data Structure (BIDS)](https://bids.neuroimaging.io/) @gorgolewski2016 ([CC BY 4.0](https://www.nature.com/articles/sdata201644#rightslink))](images/bids-overview.png){fig-align="center" width=100%}
+![[Brain Imaging Data Structure (BIDS)](https://bids.neuroimaging.io/) by @gorgolewski2016 ([CC BY 4.0](https://www.nature.com/articles/sdata201644#rightslink))](images/bids-overview.png){fig-align="center" width=100%}
 
 ```{bash}
 tree
@@ -431,7 +431,7 @@ tree
 ```
 
 ::: {style="font-size: 50%"}
-Dataset from Functional Imaging Laboratory, UCL Queen Square Institute of Neurology, London, UK ([Source](https://www.fil.ion.ucl.ac.uk/spm/data/auditory/))
+Dataset from Functional Imaging Laboratory (FIL), UCL, Queen Square, Institute of Neurology, London, UK ([Source](https://www.fil.ion.ucl.ac.uk/spm/data/auditory/))
 :::
 
 :::
