@@ -1,7 +1,6 @@
 ---
 title: "{{< var title >}}"
 subtitle: |
-  {{< var subtitle >}}
   
   [{{< fa display >}} Slides](https://lennartwittkuhn.com/talk-uma-rdm-2025) |
   [{{< fa brands github >}} Source](https://github.com/lnnrtwttkhn/talk-uma-rdm-2025)
