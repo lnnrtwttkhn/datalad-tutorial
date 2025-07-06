@@ -1,1 +1,1 @@
-Sitemap: https://lnnrtwttkhn.github.io/datalad-tutorial/sitemap.xml
+Sitemap: https://github.com/lnnrtwttkhn/datalad-tutorial/sitemap.xml
