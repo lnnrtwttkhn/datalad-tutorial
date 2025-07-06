@@ -182,6 +182,23 @@ To get started, hit this button:
 
 :::
 
+## Learning objectives
+
+::: {.fragment}
+### Version control of data with DataLad
+{{< include objectives/_objectives-introduction.qmd >}}
+:::
+
+::: {.fragment}
+### Nesting of datasets with DataLad
+{{< include objectives/_objectives-nesting.qmd >}}
+:::
+
+::: {.fragment}
+### Provenance with DataLad
+{{< include objectives/_objectives-provenance.qmd >}}
+:::
+
 # Background
 
 ::: {.fragment}
