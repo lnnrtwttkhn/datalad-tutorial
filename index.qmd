@@ -2,8 +2,8 @@
 title: "{{< var title >}}"
 subtitle: |
   
-  [{{< fa display >}} Slides](https://lennartwittkuhn.com/talk-uma-rdm-2025) |
-  [{{< fa brands github >}} Source](https://github.com/lnnrtwttkhn/talk-uma-rdm-2025)
+  [{{< fa display >}} Slides](https://lennartwittkuhn.com/datalad-tutorial) |
+  [{{< fa brands github >}} Source](https://github.com/lnnrtwttkhn/datalad-tutorial)
   
   {{< var license-badge >}}
   {{< var doi-badge >}}
@@ -36,13 +36,13 @@ execute:
 
 ### About me
 
-{{< fa user-tie >}} I am a **Postdoctoral Researcher** in Cognitive Neuroscience at the [Institute of Psychology](https://www.psy.uni-hamburg.de/en.html) at the [University of Hamburg](https://www.psy.uni-hamburg.de/en/arbeitsbereiche/lern-und-veraenderungsmechanismen.html) (PI: Prof. Nicolas Schuck)
+{{< fa user-tie >}} I am a **Senior Specalist for Data & AI** in the public sector at PD - Berater der öffentlichen Hand and an independent **consultant and trainer** for computational reproducibility, data management, and open science
+
+{{< fa building-columns >}} I was a **Postdoctoral Researcher** in Computational Cognitive Neuroscience at the Institute of Psychology at the University of Hamburg
 
 {{< fa graduation-cap >}} **BSc Psychology** & **MSc Cognitive Neuroscience** (TU Dresden), **PhD Cognitive Neuroscience** (Max Planck Institute for Human Development)
 
-{{< fa brain >}} I study **the role of fast neural memory reactivation** in the human brain, applying **machine learning** and **computational modeling** to **fMRI** data
-
-{{< fa code >}} I am passionate about **computational reproducibility**, **research data management**, **open science** and tools that improve the scientific workflow
+{{< fa brain >}} I studied **the role of fast neural memory reactivation** in the human brain, applying **machine learning** & **computational modeling** to **fMRI** data
 
 {{< fa info-circle >}} Find out more about my work on [my website]({{< var homepage >}}), [Google Scholar]({{< var scholar >}}) and [ORCiD]({{< var orcid-link >}})
 
