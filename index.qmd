@@ -642,6 +642,66 @@ ok
 
 :::
 
+## Configurations
+
+Among other things, **configurations determine which files are saved in Git and which in git-annex**.
+
+::::: {.columns}
+:::: {.column width="50%"}
+::: {.fragment}
+### Example: `-c text2git`
+
+```bash
+datalad create -c text2git test && cd test && git log
+```
+
+These two commits are made when creating a DataLad dataset with `-c text2git`:
+
+```console
+commit dfdf27528a80e052cb599ece0b4e3efef2a907eb (HEAD -> main)
+Author: Lennart Wittkuhn <lennart.wittkuhn@tutanota.com>
+Date:   Sun Jul 6 19:51:09 2025 +0200
+
+    Instruct annex to add text files to Git
+
+commit f65460b3f70454c059a24dbc97a709dd2645aa41
+Author: Lennart Wittkuhn <lennart.wittkuhn@tutanota.com>
+Date:   Sun Jul 6 19:51:08 2025 +0200
+
+    [DATALAD] new dataset
+```
+:::
+::::
+:::: {.column width="50%"}
+::: {.fragment}
+
+`.gitattributes` reveals the configuration of git-annex:
+
+```{console filename=".gitattributes"}
+* annex.backend=MD5E # <1>
+**/.git* annex.largefiles=nothing # <2>
+* annex.largefiles=((mimeencoding=binary)and(largerthan=0)) # <3>
+```
+1. The `MD5E` git-annex backend should be used for any file (`MD4E` is a reference to the type key).
+2. git-annex will *annex*, that is *store in the object-tree*, anything that it considers to be a "large file".
+By default, anything is a "large file".
+Exception, anything in the `.git` folder.
+3. git-annex regards all files of type "binary" as a large file.
+This means, text files are not annexed but stored in Git.
+<br/>
+<br/>
+:::
+::: {.fragment}
+### How can I keep a file from being annexed?
+Simple version: Add your file to `.gitattributes`:
+```{console filename=".gitattributes"}
+[...]
+myfile.pdf annex.largefiles=nothing
+```
+:::
+::::
+:::::
+
 # Science is build from modular units
 
 ::: {.fragment}
