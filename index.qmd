@@ -500,7 +500,7 @@ create(ok): /tmp/neuro-data (dataset)
 ![from the [DataLad Handbook](https://handbook.datalad.org/en/latest/index.html) by @wagner2022 ([CC BY-SA 4.0](https://handbook.datalad.org/en/latest/licenses.html))](images/datalad-local-wf.svg){fig-align="center" width=100%}
 
 ```{bash}
-datalad save -m "save neuro data"
+datalad save -m "Save neuro data"
 ```
 
 <br/>
