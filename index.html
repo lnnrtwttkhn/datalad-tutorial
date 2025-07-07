@@ -994,8 +994,15 @@ View output
 <p><a href="https://mybinder.org/v2/gh/lnnrtwttkhn/datalad-tutorial-binder/HEAD"><img data-src="https://mybinder.org/badge_logo.svg"></a></p>
 </figure>
 </div>
+<p>Complete all exercises until “3. Dataset consumption”.</p>
 <h3 id="learning-objectives-1">Learning objectives</h3>
 <p><span class="emoji" data-emoji="bulb">💡</span> You know how to configure your username and email address in Git.<br> <span class="emoji" data-emoji="bulb">💡</span> You can create a new DataLad dataset.<br> <span class="emoji" data-emoji="bulb">💡</span> You know how to check the status of a DataLad dataset.<br> <span class="emoji" data-emoji="bulb">💡</span> You can save data in a DataLad dataset.<br> <span class="emoji" data-emoji="bulb">💡</span> You know about different configurations of DataLad datasets.</p>
+<h3 id="reading">Reading</h3>
+<ul>
+<li>DataLad Handbook: <a href="https://handbook.datalad.org/en/latest/basics/101-101-create.html">Create a dataset</a></li>
+<li>DataLad Handbook: <a href="https://handbook.datalad.org/en/latest/basics/101-102-populate.html">Populate a dataset</a></li>
+<li>DataLad Handbook: <a href="https://handbook.datalad.org/en/latest/basics/101-103-modify.html">Modify content</a></li>
+</ul>
 </section>
 <section id="data-in-datalad-datasets-are-either-stored-in-git-or-git-annex" class="slide level2">
 <h2>Data in DataLad datasets are either stored in Git or git-annex</h2>
@@ -1392,6 +1399,82 @@ View output
 </div>
 </div>
 </section>
+<section id="have-access-to-more-data-than-you-have-disk-space-get-and-drop-data" class="slide level2">
+<h2>Have access to more data than you have disk-space: <code>get</code> and <code>drop</code> data</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<div class="fragment" data-fragment-index="1">
+<p>Cloned datasets are lean.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20" data-code-line-numbers="1,3,4"><pre class="sourceCode numberSource bash number-lines"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1"></a><span class="ex">datalad</span> clone git@gin.g-node.org:/lnnrtwttkhn/neuro-data.git</span>
+<span id="cb20-2"><a href="#cb20-2"></a><span class="fu">install</span><span class="er">(</span><span class="ex">ok</span><span class="kw">)</span><span class="bu">:</span> /tmp/neuro-data <span class="er">(</span><span class="ex">dataset</span><span class="kw">)</span></span>
+<span id="cb20-3"><a href="#cb20-3"></a><span class="bu">cd</span> neuro-data <span class="kw">&amp;&amp;</span> <span class="fu">du</span> <span class="at">-sh</span></span>
+<span id="cb20-4"><a href="#cb20-4"></a><span class="ex">212K</span></span></code></pre></div>
+</div>
+</div>
+<div class="fragment" data-fragment-index="2">
+<p>“Metadata” (file names, availability) are present …</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource bash number-lines"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1"></a><span class="ex">tree</span></span>
+<span id="cb21-2"><a href="#cb21-2"></a><span class="bu">.</span></span>
+<span id="cb21-3"><a href="#cb21-3"></a><span class="ex">├──</span> CHANGES</span>
+<span id="cb21-4"><a href="#cb21-4"></a><span class="ex">├──</span> README</span>
+<span id="cb21-5"><a href="#cb21-5"></a><span class="ex">├──</span> dataset_description.json</span>
+<span id="cb21-6"><a href="#cb21-6"></a><span class="ex">├──</span> sub-01</span>
+<span id="cb21-7"><a href="#cb21-7"></a><span class="ex">│&nbsp;&nbsp;</span> ├── anat</span>
+<span id="cb21-8"><a href="#cb21-8"></a><span class="ex">│&nbsp;&nbsp;</span> │&nbsp;&nbsp; └── sub-01_T1w.nii</span>
+<span id="cb21-9"><a href="#cb21-9"></a><span class="ex">│&nbsp;&nbsp;</span> └── func</span>
+<span id="cb21-10"><a href="#cb21-10"></a><span class="ex">│&nbsp;&nbsp;</span>     ├── sub-01_task-auditory_bold.nii</span>
+<span id="cb21-11"><a href="#cb21-11"></a><span class="ex">│&nbsp;&nbsp;</span>     └── sub-01_task-auditory_events.tsv</span>
+<span id="cb21-12"><a href="#cb21-12"></a><span class="ex">└──</span> task-auditory_bold.json</span>
+<span id="cb21-13"><a href="#cb21-13"></a></span>
+<span id="cb21-14"><a href="#cb21-14"></a><span class="ex">4</span> directories, 7 files</span></code></pre></div>
+</div>
+<p>… but no file content:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource bash number-lines"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1"></a><span class="ex">open</span> README</span>
+<span id="cb22-2"><a href="#cb22-2"></a><span class="ex">The</span> file /tmp/README does not exist.</span></code></pre></div>
+</div>
+</div>
+</div><div class="column" style="width:55%;">
+<div class="fragment" data-fragment-index="3">
+<p>File contents can be retrieved on demand with <code>datalad get</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23" data-code-line-numbers="1"><pre class="sourceCode numberSource bash number-lines"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1"></a><span class="ex">datalad</span> get .</span>
+<span id="cb23-2"><a href="#cb23-2"></a><span class="ex">get</span><span class="er">(</span><span class="ex">ok</span><span class="kw">)</span><span class="bu">:</span> CHANGES <span class="er">(</span><span class="fu">file</span><span class="kw">)</span> <span class="ex">[from</span> origin...]</span>
+<span id="cb23-3"><a href="#cb23-3"></a><span class="ex">get</span><span class="er">(</span><span class="ex">ok</span><span class="kw">)</span><span class="bu">:</span> README <span class="er">(</span><span class="fu">file</span><span class="kw">)</span> <span class="ex">[from</span> origin...]</span>
+<span id="cb23-4"><a href="#cb23-4"></a><span class="ex">get</span><span class="er">(</span><span class="ex">ok</span><span class="kw">)</span><span class="bu">:</span> dataset_description.json <span class="er">(</span><span class="fu">file</span><span class="kw">)</span> <span class="ex">[from</span> origin...]</span>
+<span id="cb23-5"><a href="#cb23-5"></a><span class="ex">get</span><span class="er">(</span><span class="ex">ok</span><span class="kw">)</span><span class="bu">:</span> sub-01/anat/sub-01_T1w.nii <span class="er">(</span><span class="fu">file</span><span class="kw">)</span> <span class="ex">[from</span> origin...]</span>
+<span id="cb23-6"><a href="#cb23-6"></a><span class="ex">get</span><span class="er">(</span><span class="ex">ok</span><span class="kw">)</span><span class="bu">:</span> sub-01/func/sub-01_task-auditory_bold.nii <span class="er">(</span><span class="fu">file</span><span class="kw">)</span> <span class="ex">[from</span> origin...]</span>
+<span id="cb23-7"><a href="#cb23-7"></a><span class="ex">get</span><span class="er">(</span><span class="ex">ok</span><span class="kw">)</span><span class="bu">:</span> sub-01/func/sub-01_task-auditory_events.tsv <span class="er">(</span><span class="fu">file</span><span class="kw">)</span> <span class="ex">[from</span> origin...]</span>
+<span id="cb23-8"><a href="#cb23-8"></a><span class="ex">action</span> summary:</span>
+<span id="cb23-9"><a href="#cb23-9"></a>  <span class="ex">get</span> <span class="er">(</span><span class="ex">ok:</span> 6<span class="kw">)</span></span></code></pre></div>
+</div>
+<p>Let’s check the dataset size again:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24" data-code-line-numbers="7,8"><pre class="sourceCode numberSource bash number-lines"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1"></a><span class="fu">du</span> <span class="at">-sh</span></span>
+<span id="cb24-2"><a href="#cb24-2"></a><span class="ex">49M</span></span></code></pre></div>
+</div>
+</div>
+<div class="fragment" data-fragment-index="4">
+<p>Drop file content that is not needed with <code>datalad drop</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25" data-code-line-numbers="1"><pre class="sourceCode numberSource bash number-lines"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1"></a><span class="ex">datalad</span> drop .</span>
+<span id="cb25-2"><a href="#cb25-2"></a><span class="ex">drop</span><span class="er">(</span><span class="ex">ok</span><span class="kw">)</span><span class="bu">:</span> CHANGES <span class="er">(</span><span class="fu">file</span><span class="kw">)</span> <span class="ex">[locking</span> origin...]</span>
+<span id="cb25-3"><a href="#cb25-3"></a><span class="ex">drop</span><span class="er">(</span><span class="ex">ok</span><span class="kw">)</span><span class="bu">:</span> README <span class="er">(</span><span class="fu">file</span><span class="kw">)</span> <span class="ex">[locking</span> origin...]</span>
+<span id="cb25-4"><a href="#cb25-4"></a><span class="ex">drop</span><span class="er">(</span><span class="ex">ok</span><span class="kw">)</span><span class="bu">:</span> dataset_description.json <span class="er">(</span><span class="fu">file</span><span class="kw">)</span> <span class="ex">[locking</span> origin...]</span>
+<span id="cb25-5"><a href="#cb25-5"></a><span class="ex">drop</span><span class="er">(</span><span class="ex">ok</span><span class="kw">)</span><span class="bu">:</span> sub-01/anat/sub-01_T1w.nii <span class="er">(</span><span class="fu">file</span><span class="kw">)</span> <span class="ex">[locking</span> origin...]</span>
+<span id="cb25-6"><a href="#cb25-6"></a><span class="ex">drop</span><span class="er">(</span><span class="ex">ok</span><span class="kw">)</span><span class="bu">:</span> sub-01/func/sub-01_task-auditory_bold.nii <span class="er">(</span><span class="fu">file</span><span class="kw">)</span> <span class="ex">[locking</span> origin...]</span>
+<span id="cb25-7"><a href="#cb25-7"></a><span class="ex">drop</span><span class="er">(</span><span class="ex">ok</span><span class="kw">)</span><span class="bu">:</span> sub-01/func/sub-01_task-auditory_events.tsv <span class="er">(</span><span class="fu">file</span><span class="kw">)</span> <span class="ex">[locking</span> origin...]</span>
+<span id="cb25-8"><a href="#cb25-8"></a><span class="ex">drop</span><span class="er">(</span><span class="ex">ok</span><span class="kw">)</span><span class="bu">:</span> . <span class="er">(</span><span class="ex">directory</span><span class="kw">)</span></span>
+<span id="cb25-9"><a href="#cb25-9"></a><span class="ex">action</span> summary:</span>
+<span id="cb25-10"><a href="#cb25-10"></a>  <span class="ex">drop</span> <span class="er">(</span><span class="ex">ok:</span> 7<span class="kw">)</span></span></code></pre></div>
+</div>
+<p>When files are dropped, only “metadata” stays behind, and files can be re-obtained on demand.</p>
+</div>
+</div>
+</div>
+</section>
 <section id="exercise-nesting-modular-datasets-with-clear-provenance" class="slide level2">
 <h2>Exercise: Nesting modular datasets with clear provenance</h2>
 <div class="quarto-figure quarto-figure-center">
@@ -1399,8 +1482,14 @@ View output
 <p><a href="https://mybinder.org/v2/gh/lnnrtwttkhn/datalad-tutorial-binder/HEAD"><img data-src="https://mybinder.org/badge_logo.svg"></a></p>
 </figure>
 </div>
+<p>Complete all exercises until “6. Full provenance capture and reproducibility”.</p>
 <h3 id="learning-objectives-2">Learning objectives</h3>
 <p><span class="emoji" data-emoji="bulb">💡</span> You can install an existing DataLad dataset as a subdataset.<br> <span class="emoji" data-emoji="bulb">💡</span> You can <em>get</em> and <em>drop</em> data in a DataLad dataset as needed.<br> <span class="emoji" data-emoji="bulb">💡</span> You know how to navigate nested DataLad datasets.<br> <span class="emoji" data-emoji="bulb">💡</span> You know how to access data in nested DataLad datasets recursively.<br></p>
+<h3 id="reading-1">Reading</h3>
+<ul>
+<li>DataLad Handbook: <a href="https://handbook.datalad.org/en/latest/basics/101-105-install.html">Install datasets</a></li>
+<li>DataLad Handbook: <a href="https://handbook.datalad.org/en/latest/basics/101-106-nesting.html">Dataset nesting</a></li>
+</ul>
 </section></section>
 <section>
 <section id="science-is-exploratory-and-iterative" class="title-slide slide level1 center">
@@ -1456,31 +1545,31 @@ View output
 </div>
 <div class="fragment" data-fragment-index="3">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20" data-code-line-numbers="1-6,13-24"><pre class="sourceCode numberSource bash number-lines"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1"></a><span class="ex">datalad</span> containers-run <span class="dt">\</span></span>
-<span id="cb20-2"><a href="#cb20-2"></a>  <span class="at">--message</span> <span class="st">"Time series extraction from Locus Coeruleus"</span></span>
-<span id="cb20-3"><a href="#cb20-3"></a>  <span class="ex">--container-name</span> nilearn <span class="dt">\</span></span>
-<span id="cb20-4"><a href="#cb20-4"></a>  <span class="at">--input</span> <span class="st">'mri/*_bold.nii'</span> <span class="dt">\</span></span>
-<span id="cb20-5"><a href="#cb20-5"></a>  <span class="at">--output</span> <span class="st">'sub-*/LC_timeseries_run-*.csv'</span> <span class="dt">\</span></span>
-<span id="cb20-6"><a href="#cb20-6"></a>  <span class="st">"python3 code/extract_lc_timeseries.py"</span></span>
-<span id="cb20-7"><a href="#cb20-7"></a> </span>
-<span id="cb20-8"><a href="#cb20-8"></a><span class="ex">--</span> Git commit <span class="at">--</span></span>
-<span id="cb20-9"><a href="#cb20-9"></a>  <span class="ex">commit</span> 5a7565a640ff6de67e07292a26bf272f1ee4b00e</span>
-<span id="cb20-10"><a href="#cb20-10"></a>  <span class="ex">Author:</span>     Adina Wagner adina.wagner@t-online.de</span>
-<span id="cb20-11"><a href="#cb20-11"></a>  <span class="ex">AuthorDate:</span> Mon Nov 11 16:15:08 2019 +0100</span>
-<span id="cb20-12"><a href="#cb20-12"></a></span>
-<span id="cb20-13"><a href="#cb20-13"></a>  <span class="ex">[DATALAD</span> RUNCMD] Time series extraction from Locus Coeruleus</span>
-<span id="cb20-14"><a href="#cb20-14"></a>  <span class="ex">===</span> Do not change lines below ===</span>
-<span id="cb20-15"><a href="#cb20-15"></a>  <span class="kw">{</span></span>
-<span id="cb20-16"><a href="#cb20-16"></a>   <span class="st">"cmd"</span><span class="ex">:</span> <span class="st">"singularity exec --bind {pwd} .datalad/environments/nilearn.simg bash.."</span>,</span>
-<span id="cb20-17"><a href="#cb20-17"></a>   <span class="st">"dsid"</span><span class="ex">:</span> <span class="st">"92ea1faa-632a-11e8-af29-a0369f7c647e"</span>,</span>
-<span id="cb20-18"><a href="#cb20-18"></a>   <span class="st">"inputs"</span><span class="ex">:</span> [</span>
-<span id="cb20-19"><a href="#cb20-19"></a>    <span class="st">"mri/*.bold.nii.gz"</span><span class="ex">,</span></span>
-<span id="cb20-20"><a href="#cb20-20"></a>    <span class="st">".datalad/environments/nilearn.simg"</span></span>
-<span id="cb20-21"><a href="#cb20-21"></a>   <span class="ex">],</span></span>
-<span id="cb20-22"><a href="#cb20-22"></a>   <span class="st">"outputs"</span><span class="ex">:</span> <span class="pp">[</span><span class="st">"sub-*/LC_timeseries_run-*.csv"</span><span class="pp">]</span>,</span>
-<span id="cb20-23"><a href="#cb20-23"></a>   <span class="ex">...</span></span>
-<span id="cb20-24"><a href="#cb20-24"></a>  <span class="kw">}</span></span>
-<span id="cb20-25"><a href="#cb20-25"></a>  <span class="ex">^^^</span> Do not change lines above ^^^</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb26" data-code-line-numbers="1-6,13-24"><pre class="sourceCode numberSource bash number-lines"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1"></a><span class="ex">datalad</span> containers-run <span class="dt">\</span></span>
+<span id="cb26-2"><a href="#cb26-2"></a>  <span class="at">--message</span> <span class="st">"Time series extraction from Locus Coeruleus"</span></span>
+<span id="cb26-3"><a href="#cb26-3"></a>  <span class="ex">--container-name</span> nilearn <span class="dt">\</span></span>
+<span id="cb26-4"><a href="#cb26-4"></a>  <span class="at">--input</span> <span class="st">'mri/*_bold.nii'</span> <span class="dt">\</span></span>
+<span id="cb26-5"><a href="#cb26-5"></a>  <span class="at">--output</span> <span class="st">'sub-*/LC_timeseries_run-*.csv'</span> <span class="dt">\</span></span>
+<span id="cb26-6"><a href="#cb26-6"></a>  <span class="st">"python3 code/extract_lc_timeseries.py"</span></span>
+<span id="cb26-7"><a href="#cb26-7"></a> </span>
+<span id="cb26-8"><a href="#cb26-8"></a><span class="ex">--</span> Git commit <span class="at">--</span></span>
+<span id="cb26-9"><a href="#cb26-9"></a>  <span class="ex">commit</span> 5a7565a640ff6de67e07292a26bf272f1ee4b00e</span>
+<span id="cb26-10"><a href="#cb26-10"></a>  <span class="ex">Author:</span>     Adina Wagner adina.wagner@t-online.de</span>
+<span id="cb26-11"><a href="#cb26-11"></a>  <span class="ex">AuthorDate:</span> Mon Nov 11 16:15:08 2019 +0100</span>
+<span id="cb26-12"><a href="#cb26-12"></a></span>
+<span id="cb26-13"><a href="#cb26-13"></a>  <span class="ex">[DATALAD</span> RUNCMD] Time series extraction from Locus Coeruleus</span>
+<span id="cb26-14"><a href="#cb26-14"></a>  <span class="ex">===</span> Do not change lines below ===</span>
+<span id="cb26-15"><a href="#cb26-15"></a>  <span class="kw">{</span></span>
+<span id="cb26-16"><a href="#cb26-16"></a>   <span class="st">"cmd"</span><span class="ex">:</span> <span class="st">"singularity exec --bind {pwd} .datalad/environments/nilearn.simg bash.."</span>,</span>
+<span id="cb26-17"><a href="#cb26-17"></a>   <span class="st">"dsid"</span><span class="ex">:</span> <span class="st">"92ea1faa-632a-11e8-af29-a0369f7c647e"</span>,</span>
+<span id="cb26-18"><a href="#cb26-18"></a>   <span class="st">"inputs"</span><span class="ex">:</span> [</span>
+<span id="cb26-19"><a href="#cb26-19"></a>    <span class="st">"mri/*.bold.nii.gz"</span><span class="ex">,</span></span>
+<span id="cb26-20"><a href="#cb26-20"></a>    <span class="st">".datalad/environments/nilearn.simg"</span></span>
+<span id="cb26-21"><a href="#cb26-21"></a>   <span class="ex">],</span></span>
+<span id="cb26-22"><a href="#cb26-22"></a>   <span class="st">"outputs"</span><span class="ex">:</span> <span class="pp">[</span><span class="st">"sub-*/LC_timeseries_run-*.csv"</span><span class="pp">]</span>,</span>
+<span id="cb26-23"><a href="#cb26-23"></a>   <span class="ex">...</span></span>
+<span id="cb26-24"><a href="#cb26-24"></a>  <span class="kw">}</span></span>
+<span id="cb26-25"><a href="#cb26-25"></a>  <span class="ex">^^^</span> Do not change lines above ^^^</span></code></pre></div>
 </div>
 </div>
 </div><div class="column" style="width:50%;">
@@ -1509,14 +1598,14 @@ View output
 </div>
 <div class="fragment" data-fragment-index="6">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21" data-code-line-numbers="1"><pre class="sourceCode numberSource bash number-lines"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1"></a><span class="ex">datalad</span> rerun 5a7565a640ff6de67</span>
-<span id="cb21-2"><a href="#cb21-2"></a><span class="ex">[INFO</span>   ] run commit 5a7565a640ff6de67<span class="kw">;</span> <span class="kw">(</span><span class="ex">Time</span> series extraction from Locus Coeruleus<span class="kw">)</span></span>
-<span id="cb21-3"><a href="#cb21-3"></a><span class="ex">[INFO</span>   ] Making sure inputs are available <span class="er">(</span><span class="ex">this</span> may take some time<span class="kw">)</span></span>
-<span id="cb21-4"><a href="#cb21-4"></a><span class="ex">get</span><span class="er">(</span><span class="ex">ok</span><span class="kw">)</span><span class="bu">:</span> mri/sub-01_bold.nii <span class="er">(</span><span class="fu">file</span><span class="kw">)</span></span>
-<span id="cb21-5"><a href="#cb21-5"></a>        <span class="ex">[...]</span></span>
-<span id="cb21-6"><a href="#cb21-6"></a><span class="ex">[INFO</span>   ] == Command start <span class="er">(</span><span class="ex">output</span> follows<span class="kw">)</span> <span class="ex">=====</span></span>
-<span id="cb21-7"><a href="#cb21-7"></a><span class="ex">[INFO</span>   ] == Command exit <span class="er">(</span><span class="ex">modification</span> check follows<span class="kw">)</span> <span class="ex">=====</span></span>
-<span id="cb21-8"><a href="#cb21-8"></a><span class="ex">add</span><span class="er">(</span><span class="ex">ok</span><span class="kw">)</span><span class="bu">:</span> sub-01/LC_timeseries_run-<span class="pp">*</span>.csv<span class="er">(</span><span class="fu">file</span><span class="kw">)</span></span></code></pre></div>
+<div class="sourceCode cell-code" id="cb27" data-code-line-numbers="1"><pre class="sourceCode numberSource bash number-lines"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1"></a><span class="ex">datalad</span> rerun 5a7565a640ff6de67</span>
+<span id="cb27-2"><a href="#cb27-2"></a><span class="ex">[INFO</span>   ] run commit 5a7565a640ff6de67<span class="kw">;</span> <span class="kw">(</span><span class="ex">Time</span> series extraction from Locus Coeruleus<span class="kw">)</span></span>
+<span id="cb27-3"><a href="#cb27-3"></a><span class="ex">[INFO</span>   ] Making sure inputs are available <span class="er">(</span><span class="ex">this</span> may take some time<span class="kw">)</span></span>
+<span id="cb27-4"><a href="#cb27-4"></a><span class="ex">get</span><span class="er">(</span><span class="ex">ok</span><span class="kw">)</span><span class="bu">:</span> mri/sub-01_bold.nii <span class="er">(</span><span class="fu">file</span><span class="kw">)</span></span>
+<span id="cb27-5"><a href="#cb27-5"></a>        <span class="ex">[...]</span></span>
+<span id="cb27-6"><a href="#cb27-6"></a><span class="ex">[INFO</span>   ] == Command start <span class="er">(</span><span class="ex">output</span> follows<span class="kw">)</span> <span class="ex">=====</span></span>
+<span id="cb27-7"><a href="#cb27-7"></a><span class="ex">[INFO</span>   ] == Command exit <span class="er">(</span><span class="ex">modification</span> check follows<span class="kw">)</span> <span class="ex">=====</span></span>
+<span id="cb27-8"><a href="#cb27-8"></a><span class="ex">add</span><span class="er">(</span><span class="ex">ok</span><span class="kw">)</span><span class="bu">:</span> sub-01/LC_timeseries_run-<span class="pp">*</span>.csv<span class="er">(</span><span class="fu">file</span><span class="kw">)</span></span></code></pre></div>
 </div>
 </div>
 </div>
@@ -1555,6 +1644,12 @@ View output
 </div>
 <h3 id="learning-objectives-3">Learning objectives</h3>
 <p><span class="emoji" data-emoji="bulb">💡</span> You can link analyses to inputs and outputs using DataLad.<br> <span class="emoji" data-emoji="bulb">💡</span> You can execute a <em>rerun</em> of a previous analysis with DataLad<br> <span class="emoji" data-emoji="bulb">💡</span> You know how to establish provenance and reproducibility using DataLad.</p>
+<h3 id="reading-2">Reading</h3>
+<ul>
+<li>DataLad Handbook: <a href="https://handbook.datalad.org/en/latest/basics/basics-run.html">DataLad, run! Keeping track</a></li>
+<li>DataLad Handbook: <a href="https://handbook.datalad.org/en/latest/basics/101-109-rerun.html">DataLad, rerun!</a></li>
+<li>DataLad Handbook: <a href="https://handbook.datalad.org/en/latest/basics/101-110-run2.htm">Input and output</a> l</li>
+</ul>
 </section></section>
 <section>
 <section id="science-is-collaborative-distributed" class="title-slide slide level1 center">
@@ -1577,20 +1672,20 @@ View output
 </figure>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource bash number-lines"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1"></a><span class="ex">tree</span></span>
-<span id="cb22-2"><a href="#cb22-2"></a><span class="bu">.</span></span>
-<span id="cb22-3"><a href="#cb22-3"></a><span class="ex">├──</span> CHANGES</span>
-<span id="cb22-4"><a href="#cb22-4"></a><span class="ex">├──</span> README</span>
-<span id="cb22-5"><a href="#cb22-5"></a><span class="ex">├──</span> dataset_description.json</span>
-<span id="cb22-6"><a href="#cb22-6"></a><span class="ex">├──</span> sub-01</span>
-<span id="cb22-7"><a href="#cb22-7"></a><span class="ex">│&nbsp;&nbsp;</span> ├── anat</span>
-<span id="cb22-8"><a href="#cb22-8"></a><span class="ex">│&nbsp;&nbsp;</span> │&nbsp;&nbsp; └── sub-01_T1w.nii</span>
-<span id="cb22-9"><a href="#cb22-9"></a><span class="ex">│&nbsp;&nbsp;</span> └── func</span>
-<span id="cb22-10"><a href="#cb22-10"></a><span class="ex">│&nbsp;&nbsp;</span>     ├── sub-01_task-auditory_bold.nii</span>
-<span id="cb22-11"><a href="#cb22-11"></a><span class="ex">│&nbsp;&nbsp;</span>     └── sub-01_task-auditory_events.tsv</span>
-<span id="cb22-12"><a href="#cb22-12"></a><span class="ex">└──</span> task-auditory_bold.json</span>
-<span id="cb22-13"><a href="#cb22-13"></a></span>
-<span id="cb22-14"><a href="#cb22-14"></a><span class="ex">4</span> directories, 7 files</span></code></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource bash number-lines"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1"></a><span class="ex">tree</span></span>
+<span id="cb28-2"><a href="#cb28-2"></a><span class="bu">.</span></span>
+<span id="cb28-3"><a href="#cb28-3"></a><span class="ex">├──</span> CHANGES</span>
+<span id="cb28-4"><a href="#cb28-4"></a><span class="ex">├──</span> README</span>
+<span id="cb28-5"><a href="#cb28-5"></a><span class="ex">├──</span> dataset_description.json</span>
+<span id="cb28-6"><a href="#cb28-6"></a><span class="ex">├──</span> sub-01</span>
+<span id="cb28-7"><a href="#cb28-7"></a><span class="ex">│&nbsp;&nbsp;</span> ├── anat</span>
+<span id="cb28-8"><a href="#cb28-8"></a><span class="ex">│&nbsp;&nbsp;</span> │&nbsp;&nbsp; └── sub-01_T1w.nii</span>
+<span id="cb28-9"><a href="#cb28-9"></a><span class="ex">│&nbsp;&nbsp;</span> └── func</span>
+<span id="cb28-10"><a href="#cb28-10"></a><span class="ex">│&nbsp;&nbsp;</span>     ├── sub-01_task-auditory_bold.nii</span>
+<span id="cb28-11"><a href="#cb28-11"></a><span class="ex">│&nbsp;&nbsp;</span>     └── sub-01_task-auditory_events.tsv</span>
+<span id="cb28-12"><a href="#cb28-12"></a><span class="ex">└──</span> task-auditory_bold.json</span>
+<span id="cb28-13"><a href="#cb28-13"></a></span>
+<span id="cb28-14"><a href="#cb28-14"></a><span class="ex">4</span> directories, 7 files</span></code></pre></div>
 </div>
 </div>
 </div><div class="column" style="width:50%;">
@@ -1697,82 +1792,6 @@ View output
 </ul>
 </div>
 </div>
-</div>
-</div>
-</div>
-</section>
-<section id="have-access-to-more-data-than-you-have-disk-space-get-and-drop-data" class="slide level2">
-<h2>Have access to more data than you have disk-space: <code>get</code> and <code>drop</code> data</h2>
-<div class="columns">
-<div class="column" style="width:45%;">
-<div class="fragment" data-fragment-index="1">
-<p>Cloned datasets are lean.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb23" data-code-line-numbers="1,3,4"><pre class="sourceCode numberSource bash number-lines"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1"></a><span class="ex">datalad</span> clone git@gin.g-node.org:/lnnrtwttkhn/neuro-data.git</span>
-<span id="cb23-2"><a href="#cb23-2"></a><span class="fu">install</span><span class="er">(</span><span class="ex">ok</span><span class="kw">)</span><span class="bu">:</span> /tmp/neuro-data <span class="er">(</span><span class="ex">dataset</span><span class="kw">)</span></span>
-<span id="cb23-3"><a href="#cb23-3"></a><span class="bu">cd</span> neuro-data <span class="kw">&amp;&amp;</span> <span class="fu">du</span> <span class="at">-sh</span></span>
-<span id="cb23-4"><a href="#cb23-4"></a><span class="ex">212K</span></span></code></pre></div>
-</div>
-</div>
-<div class="fragment" data-fragment-index="2">
-<p>“Metadata” (file names, availability) are present …</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource bash number-lines"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1"></a><span class="ex">tree</span></span>
-<span id="cb24-2"><a href="#cb24-2"></a><span class="bu">.</span></span>
-<span id="cb24-3"><a href="#cb24-3"></a><span class="ex">├──</span> CHANGES</span>
-<span id="cb24-4"><a href="#cb24-4"></a><span class="ex">├──</span> README</span>
-<span id="cb24-5"><a href="#cb24-5"></a><span class="ex">├──</span> dataset_description.json</span>
-<span id="cb24-6"><a href="#cb24-6"></a><span class="ex">├──</span> sub-01</span>
-<span id="cb24-7"><a href="#cb24-7"></a><span class="ex">│&nbsp;&nbsp;</span> ├── anat</span>
-<span id="cb24-8"><a href="#cb24-8"></a><span class="ex">│&nbsp;&nbsp;</span> │&nbsp;&nbsp; └── sub-01_T1w.nii</span>
-<span id="cb24-9"><a href="#cb24-9"></a><span class="ex">│&nbsp;&nbsp;</span> └── func</span>
-<span id="cb24-10"><a href="#cb24-10"></a><span class="ex">│&nbsp;&nbsp;</span>     ├── sub-01_task-auditory_bold.nii</span>
-<span id="cb24-11"><a href="#cb24-11"></a><span class="ex">│&nbsp;&nbsp;</span>     └── sub-01_task-auditory_events.tsv</span>
-<span id="cb24-12"><a href="#cb24-12"></a><span class="ex">└──</span> task-auditory_bold.json</span>
-<span id="cb24-13"><a href="#cb24-13"></a></span>
-<span id="cb24-14"><a href="#cb24-14"></a><span class="ex">4</span> directories, 7 files</span></code></pre></div>
-</div>
-<p>… but no file content:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource bash number-lines"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1"></a><span class="ex">open</span> README</span>
-<span id="cb25-2"><a href="#cb25-2"></a><span class="ex">The</span> file /tmp/README does not exist.</span></code></pre></div>
-</div>
-</div>
-</div><div class="column" style="width:55%;">
-<div class="fragment" data-fragment-index="3">
-<p>File contents can be retrieved on demand with <code>datalad get</code>:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb26" data-code-line-numbers="1"><pre class="sourceCode numberSource bash number-lines"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1"></a><span class="ex">datalad</span> get .</span>
-<span id="cb26-2"><a href="#cb26-2"></a><span class="ex">get</span><span class="er">(</span><span class="ex">ok</span><span class="kw">)</span><span class="bu">:</span> CHANGES <span class="er">(</span><span class="fu">file</span><span class="kw">)</span> <span class="ex">[from</span> origin...]</span>
-<span id="cb26-3"><a href="#cb26-3"></a><span class="ex">get</span><span class="er">(</span><span class="ex">ok</span><span class="kw">)</span><span class="bu">:</span> README <span class="er">(</span><span class="fu">file</span><span class="kw">)</span> <span class="ex">[from</span> origin...]</span>
-<span id="cb26-4"><a href="#cb26-4"></a><span class="ex">get</span><span class="er">(</span><span class="ex">ok</span><span class="kw">)</span><span class="bu">:</span> dataset_description.json <span class="er">(</span><span class="fu">file</span><span class="kw">)</span> <span class="ex">[from</span> origin...]</span>
-<span id="cb26-5"><a href="#cb26-5"></a><span class="ex">get</span><span class="er">(</span><span class="ex">ok</span><span class="kw">)</span><span class="bu">:</span> sub-01/anat/sub-01_T1w.nii <span class="er">(</span><span class="fu">file</span><span class="kw">)</span> <span class="ex">[from</span> origin...]</span>
-<span id="cb26-6"><a href="#cb26-6"></a><span class="ex">get</span><span class="er">(</span><span class="ex">ok</span><span class="kw">)</span><span class="bu">:</span> sub-01/func/sub-01_task-auditory_bold.nii <span class="er">(</span><span class="fu">file</span><span class="kw">)</span> <span class="ex">[from</span> origin...]</span>
-<span id="cb26-7"><a href="#cb26-7"></a><span class="ex">get</span><span class="er">(</span><span class="ex">ok</span><span class="kw">)</span><span class="bu">:</span> sub-01/func/sub-01_task-auditory_events.tsv <span class="er">(</span><span class="fu">file</span><span class="kw">)</span> <span class="ex">[from</span> origin...]</span>
-<span id="cb26-8"><a href="#cb26-8"></a><span class="ex">action</span> summary:</span>
-<span id="cb26-9"><a href="#cb26-9"></a>  <span class="ex">get</span> <span class="er">(</span><span class="ex">ok:</span> 6<span class="kw">)</span></span></code></pre></div>
-</div>
-<p>Let’s check the dataset size again:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb27" data-code-line-numbers="7,8"><pre class="sourceCode numberSource bash number-lines"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1"></a><span class="fu">du</span> <span class="at">-sh</span></span>
-<span id="cb27-2"><a href="#cb27-2"></a><span class="ex">49M</span></span></code></pre></div>
-</div>
-</div>
-<div class="fragment" data-fragment-index="4">
-<p>Drop file content that is not needed with <code>datalad drop</code>:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb28" data-code-line-numbers="1"><pre class="sourceCode numberSource bash number-lines"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1"></a><span class="ex">datalad</span> drop .</span>
-<span id="cb28-2"><a href="#cb28-2"></a><span class="ex">drop</span><span class="er">(</span><span class="ex">ok</span><span class="kw">)</span><span class="bu">:</span> CHANGES <span class="er">(</span><span class="fu">file</span><span class="kw">)</span> <span class="ex">[locking</span> origin...]</span>
-<span id="cb28-3"><a href="#cb28-3"></a><span class="ex">drop</span><span class="er">(</span><span class="ex">ok</span><span class="kw">)</span><span class="bu">:</span> README <span class="er">(</span><span class="fu">file</span><span class="kw">)</span> <span class="ex">[locking</span> origin...]</span>
-<span id="cb28-4"><a href="#cb28-4"></a><span class="ex">drop</span><span class="er">(</span><span class="ex">ok</span><span class="kw">)</span><span class="bu">:</span> dataset_description.json <span class="er">(</span><span class="fu">file</span><span class="kw">)</span> <span class="ex">[locking</span> origin...]</span>
-<span id="cb28-5"><a href="#cb28-5"></a><span class="ex">drop</span><span class="er">(</span><span class="ex">ok</span><span class="kw">)</span><span class="bu">:</span> sub-01/anat/sub-01_T1w.nii <span class="er">(</span><span class="fu">file</span><span class="kw">)</span> <span class="ex">[locking</span> origin...]</span>
-<span id="cb28-6"><a href="#cb28-6"></a><span class="ex">drop</span><span class="er">(</span><span class="ex">ok</span><span class="kw">)</span><span class="bu">:</span> sub-01/func/sub-01_task-auditory_bold.nii <span class="er">(</span><span class="fu">file</span><span class="kw">)</span> <span class="ex">[locking</span> origin...]</span>
-<span id="cb28-7"><a href="#cb28-7"></a><span class="ex">drop</span><span class="er">(</span><span class="ex">ok</span><span class="kw">)</span><span class="bu">:</span> sub-01/func/sub-01_task-auditory_events.tsv <span class="er">(</span><span class="fu">file</span><span class="kw">)</span> <span class="ex">[locking</span> origin...]</span>
-<span id="cb28-8"><a href="#cb28-8"></a><span class="ex">drop</span><span class="er">(</span><span class="ex">ok</span><span class="kw">)</span><span class="bu">:</span> . <span class="er">(</span><span class="ex">directory</span><span class="kw">)</span></span>
-<span id="cb28-9"><a href="#cb28-9"></a><span class="ex">action</span> summary:</span>
-<span id="cb28-10"><a href="#cb28-10"></a>  <span class="ex">drop</span> <span class="er">(</span><span class="ex">ok:</span> 7<span class="kw">)</span></span></code></pre></div>
-</div>
-<p>When files are dropped, only “metadata” stays behind, and files can be re-obtained on demand.</p>
 </div>
 </div>
 </div>
@@ -3061,7 +3080,7 @@ Wicherts, Jelte M., Denny Borsboom, Judith Kats, and Dylan Molenaar. 2006. <span
 <dl class="code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-14" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-lines="5" data-code-cell="annotated-cell-14" data-code-annotation="1">Replace <code>&lt;dataset-name&gt;</code> with the name of your dataset, i.e., the name of your dataset folder. In this example, we replace <code>&lt;dataset-name&gt;</code> with <code>neuro-data</code>. The complete command for your example hence looks like this:</span>
+<span data-code-cell="annotated-cell-14" data-code-annotation="1" data-code-lines="5">Replace <code>&lt;dataset-name&gt;</code> with the name of your dataset, i.e., the name of your dataset folder. In this example, we replace <code>&lt;dataset-name&gt;</code> with <code>neuro-data</code>. The complete command for your example hence looks like this:</span>
 </dd>
 </dl>
 </div>
@@ -3082,15 +3101,15 @@ Wicherts, Jelte M., Denny Borsboom, Judith Kats, and Dylan Molenaar. 2006. <span
 <dl class="code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-16" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-lines="1" data-code-cell="annotated-cell-16" data-code-annotation="1">Enter the email address of your ownCloud account.</span>
+<span data-code-cell="annotated-cell-16" data-code-annotation="1" data-code-lines="1">Enter the email address of your ownCloud account.</span>
 </dd>
 <dt data-target-cell="annotated-cell-16" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-lines="2" data-code-cell="annotated-cell-16" data-code-annotation="2">Enter the password of your ownCloud account.</span>
+<span data-code-cell="annotated-cell-16" data-code-annotation="2" data-code-lines="2">Enter the password of your ownCloud account.</span>
 </dd>
 <dt data-target-cell="annotated-cell-16" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-lines="3" data-code-cell="annotated-cell-16" data-code-annotation="3">Repeat the password of your ownCloud account.</span>
+<span data-code-cell="annotated-cell-16" data-code-annotation="3" data-code-lines="3">Repeat the password of your ownCloud account.</span>
 </dd>
 </dl>
 </div>
@@ -3107,7 +3126,7 @@ Wicherts, Jelte M., Denny Borsboom, Judith Kats, and Dylan Molenaar. 2006. <span
 <dl class="code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-18" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-lines="1" data-code-cell="annotated-cell-18" data-code-annotation="1">Use <code>datalad push</code> to push the dataset contents to ownCloud. For details on <code>datalad push</code>, see the <a href="http://docs.datalad.org/en/stable/generated/man/datalad-push.html">command line reference</a> and <a href="https://handbook.datalad.org/en/latest/basics/101-141-push.html">this chapter</a> in the DataLad Handbook.</span>
+<span data-code-cell="annotated-cell-18" data-code-annotation="1" data-code-lines="1">Use <code>datalad push</code> to push the dataset contents to ownCloud. For details on <code>datalad push</code>, see the <a href="http://docs.datalad.org/en/stable/generated/man/datalad-push.html">command line reference</a> and <a href="https://handbook.datalad.org/en/latest/basics/101-141-push.html">this chapter</a> in the DataLad Handbook.</span>
 </dd>
 </dl>
 </div>
