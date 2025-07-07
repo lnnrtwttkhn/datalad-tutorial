@@ -1132,7 +1132,6 @@ add(ok): sub-01/LC_timeseries_run-*.csv(file)
 - DataLad Handbook: [DataLad, run! Keeping track](https://handbook.datalad.org/en/latest/basics/basics-run.html)
 - DataLad Handbook: [DataLad, rerun!](https://handbook.datalad.org/en/latest/basics/101-109-rerun.html)
 - DataLad Handbook: [Input and output](https://handbook.datalad.org/en/latest/basics/101-110-run2.htm)
-l
 
 # Science is collaborative & distributed
 
