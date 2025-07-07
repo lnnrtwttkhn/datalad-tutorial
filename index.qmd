@@ -543,6 +543,8 @@ save(ok): . (dataset)                                              action summar
 
 [![](https://mybinder.org/badge_logo.svg)]({{< var mybinder >}})
 
+Complete all exercises until "3. Dataset consumption".
+
 ### Learning objectives
 
 {{< include objectives/_objectives-introduction.qmd >}}
@@ -986,6 +988,8 @@ When files are dropped, only "metadata" stays behind, and files can be re-obtain
 ## Exercise: Nesting modular datasets with clear provenance
 
 [![](https://mybinder.org/badge_logo.svg)]({{< var mybinder >}})
+
+Complete all exercises until "6. Full provenance capture and reproducibility".
 
 ### Learning objectives
 
