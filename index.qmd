@@ -549,6 +549,12 @@ Complete all exercises until "3. Dataset consumption".
 
 {{< include objectives/_objectives-introduction.qmd >}}
 
+### Reading
+
+- DataLad Handbook: [Create a dataset](https://handbook.datalad.org/en/latest/basics/101-101-create.html)
+- DataLad Handbook: [Populate a dataset](https://handbook.datalad.org/en/latest/basics/101-102-populate.html)
+- DataLad Handbook: [Modify content](https://handbook.datalad.org/en/latest/basics/101-103-modify.html)
+
 ## Data in DataLad datasets are either stored in Git or git-annex
 
 ::::: {.columns}
@@ -995,6 +1001,11 @@ Complete all exercises until "6. Full provenance capture and reproducibility".
 
 {{< include objectives/_objectives-nesting.qmd >}}
 
+### Reading
+
+- DataLad Handbook: [Install datasets](https://handbook.datalad.org/en/latest/basics/101-105-install.html)
+- DataLad Handbook: [Dataset nesting](https://handbook.datalad.org/en/latest/basics/101-106-nesting.html)
+
 # Science is exploratory and iterative
 
 ::: {.fragment}
@@ -1115,6 +1126,13 @@ add(ok): sub-01/LC_timeseries_run-*.csv(file)
 ### Learning objectives
 
 {{< include objectives/_objectives-provenance.qmd >}}
+
+### Reading
+
+- DataLad Handbook: [DataLad, run! Keeping track](https://handbook.datalad.org/en/latest/basics/basics-run.html)
+- DataLad Handbook: [DataLad, rerun!](https://handbook.datalad.org/en/latest/basics/101-109-rerun.html)
+- DataLad Handbook: [Input and output](https://handbook.datalad.org/en/latest/basics/101-110-run2.htm)
+l
 
 # Science is collaborative & distributed
 
