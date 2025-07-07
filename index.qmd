@@ -890,6 +890,99 @@ index 0000000..b9eb768
 :::
 ::::
 
+## Have access to more data than you have disk-space: `get` and `drop` data
+
+::::: {.columns}
+:::: {.column width="45%"}
+::: {.fragment fragment-index=1}
+Cloned datasets are lean.
+
+```{bash}
+#| code-line-numbers: "1,3,4"
+datalad clone git@gin.g-node.org:/lnnrtwttkhn/neuro-data.git
+install(ok): /tmp/neuro-data (dataset)
+cd neuro-data && du -sh
+212K
+```
+
+:::
+
+::: {.fragment fragment-index=2}
+"Metadata" (file names, availability) are present ...
+```{bash}
+tree
+.
+├── CHANGES
+├── README
+├── dataset_description.json
+├── sub-01
+│   ├── anat
+│   │   └── sub-01_T1w.nii
+│   └── func
+│       ├── sub-01_task-auditory_bold.nii
+│       └── sub-01_task-auditory_events.tsv
+└── task-auditory_bold.json
+
+4 directories, 7 files
+```
+
+... but no file content:
+
+```{bash}
+open README
+The file /tmp/README does not exist.
+```
+:::
+
+::::
+:::: {.column width="55%"}
+::: {.fragment fragment-index=3}
+File contents can be retrieved on demand with `datalad get`:
+```{bash}
+#| code-line-numbers: "1"
+datalad get .
+get(ok): CHANGES (file) [from origin...]
+get(ok): README (file) [from origin...]
+get(ok): dataset_description.json (file) [from origin...]
+get(ok): sub-01/anat/sub-01_T1w.nii (file) [from origin...]
+get(ok): sub-01/func/sub-01_task-auditory_bold.nii (file) [from origin...]
+get(ok): sub-01/func/sub-01_task-auditory_events.tsv (file) [from origin...]
+action summary:
+  get (ok: 6)
+```
+
+Let's check the dataset size again:
+
+```{bash}
+#| code-line-numbers: "7,8"
+du -sh
+49M
+```
+:::
+
+::: {.fragment fragment-index=4}
+Drop file content that is not needed with `datalad drop`:
+
+```{bash}
+#| code-line-numbers: "1"
+datalad drop .
+drop(ok): CHANGES (file) [locking origin...]
+drop(ok): README (file) [locking origin...]
+drop(ok): dataset_description.json (file) [locking origin...]
+drop(ok): sub-01/anat/sub-01_T1w.nii (file) [locking origin...]
+drop(ok): sub-01/func/sub-01_task-auditory_bold.nii (file) [locking origin...]
+drop(ok): sub-01/func/sub-01_task-auditory_events.tsv (file) [locking origin...]
+drop(ok): . (directory)
+action summary:
+  drop (ok: 7)
+```
+
+When files are dropped, only "metadata" stays behind, and files can be re-obtained on demand.
+
+:::
+::::
+:::::
+
 ## Exercise: Nesting modular datasets with clear provenance
 
 [![](https://mybinder.org/badge_logo.svg)]({{< var mybinder >}})
@@ -1127,99 +1220,6 @@ DataLad is built to **maximize interoperability** and **streamline routines acro
 - Examples: [DataLad-OSF](http://docs.datalad.org/projects/osf/en/latest/)
 ::::
 :::::
-
-:::
-::::
-:::::
-
-## Have access to more data than you have disk-space: `get` and `drop` data
-
-::::: {.columns}
-:::: {.column width="45%"}
-::: {.fragment fragment-index=1}
-Cloned datasets are lean.
-
-```{bash}
-#| code-line-numbers: "1,3,4"
-datalad clone git@gin.g-node.org:/lnnrtwttkhn/neuro-data.git
-install(ok): /tmp/neuro-data (dataset)
-cd neuro-data && du -sh
-212K
-```
-
-:::
-
-::: {.fragment fragment-index=2}
-"Metadata" (file names, availability) are present ...
-```{bash}
-tree
-.
-├── CHANGES
-├── README
-├── dataset_description.json
-├── sub-01
-│   ├── anat
-│   │   └── sub-01_T1w.nii
-│   └── func
-│       ├── sub-01_task-auditory_bold.nii
-│       └── sub-01_task-auditory_events.tsv
-└── task-auditory_bold.json
-
-4 directories, 7 files
-```
-
-... but no file content:
-
-```{bash}
-open README
-The file /tmp/README does not exist.
-```
-:::
-
-::::
-:::: {.column width="55%"}
-::: {.fragment fragment-index=3}
-File contents can be retrieved on demand with `datalad get`:
-```{bash}
-#| code-line-numbers: "1"
-datalad get .
-get(ok): CHANGES (file) [from origin...]
-get(ok): README (file) [from origin...]
-get(ok): dataset_description.json (file) [from origin...]
-get(ok): sub-01/anat/sub-01_T1w.nii (file) [from origin...]
-get(ok): sub-01/func/sub-01_task-auditory_bold.nii (file) [from origin...]
-get(ok): sub-01/func/sub-01_task-auditory_events.tsv (file) [from origin...]
-action summary:
-  get (ok: 6)
-```
-
-Let's check the dataset size again:
-
-```{bash}
-#| code-line-numbers: "7,8"
-du -sh
-49M
-```
-:::
-
-::: {.fragment fragment-index=4}
-Drop file content that is not needed with `datalad drop`:
-
-```{bash}
-#| code-line-numbers: "1"
-datalad drop .
-drop(ok): CHANGES (file) [locking origin...]
-drop(ok): README (file) [locking origin...]
-drop(ok): dataset_description.json (file) [locking origin...]
-drop(ok): sub-01/anat/sub-01_T1w.nii (file) [locking origin...]
-drop(ok): sub-01/func/sub-01_task-auditory_bold.nii (file) [locking origin...]
-drop(ok): sub-01/func/sub-01_task-auditory_events.tsv (file) [locking origin...]
-drop(ok): . (directory)
-action summary:
-  drop (ok: 7)
-```
-
-When files are dropped, only "metadata" stays behind, and files can be re-obtained on demand.
 
 :::
 ::::
